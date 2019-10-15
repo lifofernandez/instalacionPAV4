@@ -32,16 +32,16 @@ void setup() {
     placa[i] = -1 ;
   }
 
-  colonias[0] = new Colonia(0,color(255,0,0));
-  colonias[1] = new Colonia(1,color(0,255,0));
-  colonias[2] = new Colonia(2,color(0,0,255));
-  colonias[3] = new Colonia(3,color(255,255,0));
-  colonias[4] = new Colonia(4,color(255,0,255));
-  colonias[5] = new Colonia(5,color(255,255,255));
-  colonias[6] = new Colonia(6,color(255,0,255));
-  colonias[7] = new Colonia(7,color(255,0,255));
-  colonias[8] = new Colonia(8,color(255,0,255));
-  colonias[9] = new Colonia(9,color(255,0,255));
+  colonias[0] = new Colonia( 0, color( 255,0,0) );
+  colonias[1] = new Colonia( 1, color( 0,255,0) );
+  colonias[2] = new Colonia( 2, color( 0,0,255) );
+  colonias[3] = new Colonia( 3, color( 255,255,0) );
+  colonias[4] = new Colonia( 4, color( 255,0,255) );
+  colonias[5] = new Colonia( 5, color( 255,255,255) );
+  colonias[6] = new Colonia( 6, color( 255,0,255) );
+  colonias[7] = new Colonia( 7, color( 255,0,255) );
+  colonias[8] = new Colonia( 8, color( 255,0,255) );
+  colonias[9] = new Colonia( 9, color( 255,0,255) );
 }
 
 
@@ -75,15 +75,72 @@ void keyPressed() {
   //  print( keyIndex );
   //}
 
-  colonias[ key % coloniasCantidad ].deploy(
-    int(puntero.x),
-    int(puntero.y)
-  );
+  if (key == '0'){
+    colonias[ 0 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '1'){
+    colonias[ 1 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '2'){
+    colonias[ 2 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '3'){
+    colonias[ 3 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '4'){
+    colonias[ 4 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '5'){
+    colonias[ 5 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '6'){
+    colonias[ 6 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '7'){
+    colonias[ 7 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '8'){
+    colonias[ 8 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '9'){
+    colonias[ 9 ].deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
 
 }
 void mira() {
-  distancia = sqrt( pow( puntero.x - centro.x, 2) + pow( puntero.y - centro.y, 2) );
-
+  distancia = sqrt(
+   pow( puntero.x - centro.x, 2) + pow( puntero.y - centro.y, 2)
+  );
 
   if(key == CODED) {
     if( keyCode == LEFT ) {
@@ -99,7 +156,7 @@ void mira() {
     if( keyCode ==  DOWN ) {
       if ( int(distancia) <= int(radio - paso * 2) ) puntero.y += paso; 
     }
-    println(distancia);
+    //println(distancia);
   }
 }
 

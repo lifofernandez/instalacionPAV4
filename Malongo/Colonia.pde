@@ -26,6 +26,7 @@ class Colonia{
     }
   }
   void deploy( int x, int y ) {
+    print("inoculo: " + id + "\n");
     int X = x;
     int Y = y;
     placa[ X + Y * width ] = id;
