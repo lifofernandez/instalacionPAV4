@@ -22,9 +22,6 @@ class Particle{
 
   void update() {
     // move around
-    distancia = sqrt(
-     pow( X - centro.x, 2) + pow( Y - centro.y, 2)
-    );
     if (!stuck) {
       x += round(random(-1, 1));
       y += round(random(-1, 1));
@@ -62,6 +59,10 @@ class Particle{
     int currentx = x;
     int currenty = y;
 
+    float dis = sqrt(
+     pow( currentx - centro.x, 2) + pow( currenty - centro.y, 2)
+    );
+
     // get positions
     int leftx   = currentx - 1;
     int rightx  = currentx + 1;
@@ -84,7 +85,7 @@ class Particle{
     ) return true;
 
     if (
-      distancia < radio * .9
+      dis >= radio - paso
     ) return true;
 
     // pre multiply the ys

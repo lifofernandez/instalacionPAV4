@@ -15,13 +15,13 @@ int diametro;
 int radio;
 
 void setup() {
-  size( 1024, 700, P2D );
+  size( 700, 700, P2D );
   background(0);
   diametro = height;
   radio = diametro / 2;
   centro = new PVector( width / 2 , height / 2 );
 
-  puntero = new PVector(centro.x,centro.y);
+  puntero = new PVector( centro.x, centro.y );
 
   int cantidadPixeles = width * height;
   cantidadPixeles = width * height;
@@ -47,10 +47,7 @@ void setup() {
 
 void draw() {
   ellipse(centro.x, centro.y, diametro, diametro);
-  
 
-
-  ellipse(puntero.x, puntero.y,5,5);
   if(keyPressed == true) {
     mira();
   }
@@ -60,7 +57,7 @@ void draw() {
     colonias[i].update();
   }
   updatePixels();
-
+  ellipse(puntero.x, puntero.y,5,5);
 }
 
 void keyPressed() {
@@ -141,22 +138,71 @@ void mira() {
   distancia = sqrt(
    pow( puntero.x - centro.x, 2) + pow( puntero.y - centro.y, 2)
   );
+  println(distancia);
+  PVector anterior = new PVector( puntero.x, puntero.y );
+
+  if ( distancia >  (radio - paso * 2 ) ){
+    puntero.x =  anterior.x ;
+    puntero.y =  anterior.y;
+  }
 
   if(key == CODED) {
-    if( keyCode == LEFT ) {
-      if ( int(distancia) <= int(radio - paso * 2)) puntero.x -= paso; 
 
+     if ( distancia < radio ){
+
+       if( keyCode == LEFT ) {
+           puntero.x -= paso;
+       }
+       if( keyCode == RIGHT ) {
+           puntero.x += paso;
+       }
+
+       if( keyCode == UP ) {
+           puntero.y -= paso; 
+       }
+       if( keyCode ==  DOWN ) {
+           puntero.y += paso; 
+       }
+    
     }
-    if( keyCode == RIGHT ) {
-      if ( int(distancia) <= int(radio - paso * 2)) puntero.x += paso; 
-    }
-    if( keyCode == UP ) {
-      if ( int(distancia) <= int(radio - paso * 2) ) puntero.y -= paso; 
-    }
-    if( keyCode ==  DOWN ) {
-      if ( int(distancia) <= int(radio - paso * 2) ) puntero.y += paso; 
-    }
-    //println(distancia);
+    //do {
+    // while (
+    //    ( distancia < (radio - paso * 2) )
+    //  );
+    //}
   }
 }
 
+//  if(key == CODED) {
+//
+//    if( keyCode == LEFT ) {
+//      if ( distancia < (radio - paso * 2) ){
+//	puntero.x -= paso;
+//      } else {
+//        puntero.x = anteriorX + paso;
+//      }	
+//    }
+//    if( keyCode == RIGHT ) {
+//      if ( distancia < (radio - paso * 2) ){ 
+//        puntero.x += paso;
+//      }else{
+//        puntero.x = anteriorX + paso;
+//      } 
+//    }
+//
+//    if( keyCode == UP ) {
+//      if ( distancia < (radio - paso * 2) ){
+//	puntero.y -= paso; 
+//      }else{
+//        puntero.y = anteriorY + paso ;
+//      } 
+//    }
+//    if( keyCode ==  DOWN ) {
+//      if ( distancia < (radio - paso * 2) ){
+//        puntero.y += paso; 
+//      }else{
+//        puntero.y = anteriorY - paso;
+//      } 
+//    }
+//
+//  }
