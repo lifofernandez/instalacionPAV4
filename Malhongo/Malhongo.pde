@@ -14,6 +14,11 @@ float distancia = 0;
 int diametro;
 int radio;
 
+float r = 50;
+int numPoints= 20;
+float a = TWO_PI / ( float )numPoints;
+float angulo = 0;
+
 void setup() {
   size( 700, 700, P2D );
   background(0);
@@ -25,6 +30,7 @@ void setup() {
 
   int cantidadPixeles = width * height;
   cantidadPixeles = width * height;
+
   // create an array that
   // stores the position of our particles
   placa = new int[ cantidadPixeles ];
@@ -35,17 +41,19 @@ void setup() {
   colonias[0] = new Colonia( 0, color( 255,0,0) );
   colonias[1] = new Colonia( 1, color( 0,255,0) );
   colonias[2] = new Colonia( 2, color( 0,0,255) );
-  colonias[3] = new Colonia( 3, color( 255,255,0) );
+  colonias[3] = new Colonia( 3, color( 0,255,255) );
   colonias[4] = new Colonia( 4, color( 255,0,255) );
-  colonias[5] = new Colonia( 5, color( 255,255,255) );
-  colonias[6] = new Colonia( 6, color( 255,0,255) );
-  colonias[7] = new Colonia( 7, color( 255,0,255) );
-  colonias[8] = new Colonia( 8, color( 255,0,255) );
-  colonias[9] = new Colonia( 9, color( 255,0,255) );
+  colonias[5] = new Colonia( 5, color( 255,255,0) );
+
+  colonias[6] = new Colonia( 6, color( 255,155,55) );
+  colonias[7] = new Colonia( 7, color( 55,255,155) );
+  colonias[8] = new Colonia( 8, color( 155,55,255) );
+  colonias[9] = new Colonia( 9, color( 0,0,0) );
 }
 
 
 void draw() {
+
   ellipse(centro.x, centro.y, diametro, diametro);
 
   if(keyPressed == true) {
@@ -57,6 +65,8 @@ void draw() {
     colonias[i].update();
   }
   updatePixels();
+  puntero.x = centro.x + r * sin( a * angulo );
+  puntero.y = centro.y + r * cos( a * angulo );
   ellipse(puntero.x, puntero.y,5,5);
 }
 
@@ -135,74 +145,22 @@ void keyPressed() {
 
 }
 void mira() {
-  distancia = sqrt(
-   pow( puntero.x - centro.x, 2) + pow( puntero.y - centro.y, 2)
-  );
-  println(distancia);
-  PVector anterior = new PVector( puntero.x, puntero.y );
-
-  if ( distancia >  (radio - paso * 2 ) ){
-    puntero.x =  anterior.x ;
-    puntero.y =  anterior.y;
-  }
 
   if(key == CODED) {
-
-     if ( distancia < radio ){
-
-       if( keyCode == LEFT ) {
-           puntero.x -= paso;
-       }
-       if( keyCode == RIGHT ) {
-           puntero.x += paso;
-       }
-
-       if( keyCode == UP ) {
-           puntero.y -= paso; 
-       }
-       if( keyCode ==  DOWN ) {
-           puntero.y += paso; 
-       }
-    
+    if( keyCode == LEFT ) {
+      if ( r > -radio+paso ) r -= paso;
     }
-    //do {
-    // while (
-    //    ( distancia < (radio - paso * 2) )
-    //  );
-    //}
+    if( keyCode == RIGHT ) {
+      if ( r < radio - paso ) r += paso;
+    }
+
+    if( keyCode == UP ) {
+        angulo += 1 ; 
+    }
+    if( keyCode ==  DOWN ) {
+        angulo -= 1 ; 
+    }
+  
   }
 }
 
-//  if(key == CODED) {
-//
-//    if( keyCode == LEFT ) {
-//      if ( distancia < (radio - paso * 2) ){
-//	puntero.x -= paso;
-//      } else {
-//        puntero.x = anteriorX + paso;
-//      }	
-//    }
-//    if( keyCode == RIGHT ) {
-//      if ( distancia < (radio - paso * 2) ){ 
-//        puntero.x += paso;
-//      }else{
-//        puntero.x = anteriorX + paso;
-//      } 
-//    }
-//
-//    if( keyCode == UP ) {
-//      if ( distancia < (radio - paso * 2) ){
-//	puntero.y -= paso; 
-//      }else{
-//        puntero.y = anteriorY + paso ;
-//      } 
-//    }
-//    if( keyCode ==  DOWN ) {
-//      if ( distancia < (radio - paso * 2) ){
-//        puntero.y += paso; 
-//      }else{
-//        puntero.y = anteriorY - paso;
-//      } 
-//    }
-//
-//  }
