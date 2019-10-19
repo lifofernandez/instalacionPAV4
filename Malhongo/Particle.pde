@@ -23,8 +23,8 @@ class Particle{
   void update() {
     // move around
     if (!stuck) {
-      x += round(random(-1, 1));
-      y += round(random(-1, 1));
+      x += round( random( -col.horizontal, col.horizontal) );
+      y += round( random( -col.verical, col.verical ) );
       
       if (
 	x < 0 ||
@@ -36,14 +36,6 @@ class Particle{
          reset();
          return; 
       }
-
-      // convierte
-      // if (
-      //   ocupado()
-      // ) {
-      //   //stuck = true;
-      //   placa[y * width + x] = cid;        
-      // }
 
       if (
 	!alone()
@@ -115,15 +107,36 @@ class Particle{
   boolean ocupado() {
     int currentx = x;
     int currenty = y;
-
-    // pre multiply the ys
     currenty *= width;
     if (
       placa[ currenty + currentx ] >= 0 
     ) return true;
-    
-    
+
     return false;
   }  
 
+}
+
+class ParticleAgresiva extends Particle{
+  ParticleAgresiva( ColoniaAgresiva c ) {
+    super( c );
+  }
+
+  boolean ocupado() {
+    int currentx = x;
+    int currenty = y;
+    currenty *= width;
+    if (
+      placa[ currenty + currentx ] >= 3
+    ) return true;
+
+    return false;
+  }  
+}
+
+
+class ParticlePasiva extends Particle{
+  ParticlePasiva( Colonia c ) {
+    super( c );
+  }
 }

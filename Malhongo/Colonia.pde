@@ -2,6 +2,9 @@ class Colonia{
   int id;
   int particleCount = 100000;
   Particle[] particles = new Particle[ particleCount ];
+  int horizontal = 1;
+  int verical = 1;
+
 
   // color col = color(
   //   random(255),
@@ -13,9 +16,11 @@ class Colonia{
   int X;
   int Y;
 
-  Colonia( int i, color c ) {
+ Colonia( int i, color c, int h, int v ) {
     id = i;
     col = c;
+    horizontal = h;
+    verical = v;
     init();
     //deploy();
   }
@@ -40,17 +45,48 @@ class Colonia{
          particles[i].y * width + particles[i].x
         ] = color( col );
 
-        //stroke(col);
-	//noFill();
-        //ellipse(
-	//  particles[i].y,
-	//  particles[i].x,
-	//  15,
-	//  15
-	//);
-
       }
     } 
   }
+
+}
+
+class ColoniaAgresiva extends Colonia{
+
+  ColoniaAgresiva ( int i, color c, int h, int v ) {
+    super( i , c, h, v );
+    ParticleAgresiva[] particles = new ParticleAgresiva[ particleCount ];
+  }
+
+  void deploy( int x, int y ) {
+    print("Inoculo Agresiva: " + id + "\n");
+    int X = x;
+    int Y = y;
+    placa[ X + Y * width ] = id;
+  }
+
+  void init() {
+    for( int i = 0; i < particleCount; i++ ) {
+      particles[i] = new ParticleAgresiva( this );
+    }
+  }
+
+}
+
+class ColoniaPasiva extends Colonia{
+  int particleCount = 100000;
+  ParticlePasiva[] particles = new ParticlePasiva[ particleCount ];
+ 
+  ColoniaPasiva ( int i, color c, int h, int v ) {
+    super( i , c, h, v );
+  }
+
+  void deploy( int x, int y ) {
+    print("Inoculo pasiva: " + id + "\n");
+    int X = x;
+    int Y = y;
+    placa[ X + Y * width ] = id;
+  }
+
 
 }
