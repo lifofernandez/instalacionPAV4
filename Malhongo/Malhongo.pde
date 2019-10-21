@@ -40,17 +40,17 @@ void setup() {
     placa[i] = -1 ;
   }
 
-  coloniasPasivas[0] = new ColoniaPasiva( 0, color( 0,255,0),1,1 );
-  coloniasPasivas[1] = new ColoniaPasiva( 1, color( 0,155,0),10,1 );
-  coloniasPasivas[2] = new ColoniaPasiva( 2, color( 0,55,0) ,1,10 );
+  coloniasPasivas[0] = new ColoniaPasiva( 0, color( 0, 255, 0),  1,  1 );
+  coloniasPasivas[1] = new ColoniaPasiva( 1, color( 0, 155, 0), 10,  1 );
+  coloniasPasivas[2] = new ColoniaPasiva( 2, color( 0,  55, 0),  1, 10 );
 
-  colonias[0] = new Colonia( 3, color( 0, 0 , 255 ) ,1,1 );
-  colonias[1] = new Colonia( 4, color( 0, 0 , 155 ) ,10,1);
-  colonias[2] = new Colonia( 5, color( 0, 0 , 55 )  ,1,10);
+  colonias[0] = new Colonia( 3, color( 0, 0 , 255 ),  1,  1 );
+  colonias[1] = new Colonia( 4, color( 0, 0 , 155 ), 10,  1);
+  colonias[2] = new Colonia( 5, color( 0, 0 ,  55 ),  1, 10);
 
-  coloniasAgresivas[0] = new ColoniaAgresiva( 6, color( 255,0,0) ,1,1 );
-  coloniasAgresivas[1] = new ColoniaAgresiva( 7, color( 155,0,0) ,10,1);
-  coloniasAgresivas[2] = new ColoniaAgresiva( 8, color( 55,0,0) ,1,10;
+  coloniasAgresivas[0] = new ColoniaAgresiva( 6, color( 255, 0, 0),  1,  1 );
+  coloniasAgresivas[1] = new ColoniaAgresiva( 7, color( 155, 0, 0), 10,  1 );
+  coloniasAgresivas[2] = new ColoniaAgresiva( 8, color(  55, 0, 0),  1, 10 );
 
 }
 
@@ -91,14 +91,14 @@ void keyPressed() {
   //  print( keyIndex );
   //}
 
-  if (key == '0'){
-    //colonias[ 0 ].deploy(
-    //  int( puntero.x ),
-    //  int( puntero.y )
-    //);
-  }
+  //if (key == '0'){
+  //  //colonias[ 0 ].deploy(
+  //  //  int( puntero.x ),
+  //  //  int( puntero.y )
+  //  //);
+  //}
 
-  if (key == '1'){
+  if (key == 'e'){
     colonias[ 0 ].deploy(
       int( puntero.x ),
       int( puntero.y )
@@ -116,26 +116,26 @@ void keyPressed() {
       int( puntero.y )
     );
   }
-  if (key == '4'){
+  if (key == 'w'){
     coloniasPasivas[ 0 ].deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
-  if (key == '5'){
+  if (key == '6'){
     coloniasPasivas[ 1 ].deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
-  if (key == '6'){
+  if (key == '5'){
     coloniasPasivas[ 2 ].deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
 
-  if (key == '7'){
+  if (key == 'q'){
     coloniasAgresivas[ 0 ].deploy(
       int( puntero.x ),
       int( puntero.y )
@@ -157,22 +157,34 @@ void keyPressed() {
 }
 
 void mira() {
-
-  if(key == CODED) {
-    if( keyCode == LEFT ) {
-      if ( r > -radio+paso ) r -= paso;
-    }
-    if( keyCode == RIGHT ) {
-      if ( r < radio - paso ) r += paso;
-    }
-
-    if( keyCode == UP ) {
-        angulo += 1 ; 
-    }
-    if( keyCode ==  DOWN ) {
-        angulo -= 1 ; 
-    }
-  
+  // CURSOR
+  if (key == 'f'){
+    r += paso;
+    if ( r > radio ) r = -radio;
   }
+  if (key == 't'){
+      angulo += .5 ;;
+  }
+
+  //if(key == CODED) {
+  //  if( keyCode == LEFT ) {
+  //    //if ( r > -radio+paso ) r -= paso;
+  //    r -= paso;
+  //    if ( r < -radio ) r = radio;
+  //  }
+  //  if( keyCode == RIGHT ) {
+  //    //if ( r < radio - paso ) r += paso;
+  //    r += paso;
+  //    if ( r > radio ) r = -radio;
+  //  }
+
+  //  if( keyCode == UP ) {
+  //      angulo += .5 ;;
+  //  }
+  //  if( keyCode ==  DOWN ) {
+  //      angulo -= .5 ; 
+  //  }
+  //
+  //}
 }
 
