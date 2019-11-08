@@ -1,6 +1,8 @@
 
 class Particle{
   int x, y;
+  PVector origen;
+
   int cid;
   Colonia col;
   boolean stuck = false;
@@ -45,6 +47,19 @@ class Particle{
       }
     }
   }
+
+  boolean cerca() {
+    int currentx = x;
+    int currenty = y;
+
+    float dis = sqrt(
+     pow( currentx - col.origen.x, 2) + pow( currenty - col.origen.y, 2)
+    );
+    if( dis > col.cambio_color){
+      return false;
+    }
+    return true;
+ }
 
   // returns true if no neighboring pixels
   boolean alone() {

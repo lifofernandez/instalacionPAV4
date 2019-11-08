@@ -3,9 +3,25 @@
  */
 
 int coloniasCantidad = 3;
-Colonia[] colonias = new Colonia[ coloniasCantidad ];
-ColoniaPasiva[] coloniasPasivas = new ColoniaPasiva[ coloniasCantidad ];
-ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
+
+Colonia stemphylium         ;
+Colonia phialophora         ;
+Colonia arborenens          ;
+Colonia cladosporum         ;
+Colonia eurotium            ;
+Colonia phoma               ;
+
+Colonia aspergillus         ;
+Colonia flavus              ;
+Colonia niger               ;
+
+Colonia penicillium         ;
+Colonia penicillium_violeta ;
+Colonia penicillium_rojo    ;
+
+//ColoniaPasiva[] coloniasPasivas = new ColoniaPasiva[ coloniasCantidad ];
+//ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
+
 int[] placa;
 
 PVector centro;
@@ -40,17 +56,21 @@ void setup() {
     placa[i] = -1 ;
   }
 
-  coloniasPasivas[0] = new ColoniaPasiva( 0, color( 0, 255, 0),  1,  1 );
-  coloniasPasivas[1] = new ColoniaPasiva( 1, color( 0, 155, 0), 10,  1 );
-  coloniasPasivas[2] = new ColoniaPasiva( 2, color( 0,  55, 0),  1, 10 );
-
-  colonias[0] = new Colonia( 3, color( 0, 0 , 255 ),  1,  1 );
-  colonias[1] = new Colonia( 4, color( 0, 0 , 155 ), 10,  1);
-  colonias[2] = new Colonia( 5, color( 0, 0 ,  55 ),  1, 10);
-
-  coloniasAgresivas[0] = new ColoniaAgresiva( 6, color( 255, 0, 0),  1,  1 );
-  coloniasAgresivas[1] = new ColoniaAgresiva( 7, color( 155, 0, 0), 10,  1 );
-  coloniasAgresivas[2] = new ColoniaAgresiva( 8, color(  55, 0, 0),  1, 10 );
+  // id, color1, color2, cambio_color, horizontal, vertical  
+  stemphylium         = new Colonia( 1,  color( 255, 0,   0   ), color( 0,   255, 0   ), 40, 1,  1 );
+  phialophora         = new Colonia( 2,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  arborenens          = new Colonia( 3,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  cladosporum         = new Colonia( 4,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  eurotium            = new Colonia( 5,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  phoma               = new Colonia( 6,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+                                                                 
+  aspergillus         = new Colonia( 7,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  flavus              = new Colonia( 8,  color( 0,   255, 0   ), color( 0,   255, 0   ), 40, 1,  1 );
+  niger               = new Colonia( 9,  color( 255, 0,   255 ), color( 255, 0,   255 ), 40, 1,  1 );
+                                                                 
+  penicillium         = new Colonia( 10, color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  penicillium_rojo    = new Colonia( 11, color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
+  penicillium_violeta = new Colonia( 12, color( 0,   255 ,0   ), color( 0,   255 ,0   ), 40, 1,  1 );
 
 }
 
@@ -64,19 +84,27 @@ void draw() {
   }
   
   loadPixels();
-  for(int i=0; i < coloniasCantidad; i++) {
-    colonias[i].update();
-  }
-  for(int i=0; i < coloniasCantidad; i++) {
-    coloniasPasivas[i].update();
-  }
-  for(int i=0; i < coloniasCantidad; i++) {
-    coloniasAgresivas[i].update();
-  }
+
+  stemphylium.update();
+  phialophora.update();
+  arborenens.update();
+  cladosporum.update();
+  eurotium.update();
+  phoma.update();
+
+  aspergillus.update();
+  flavus.update();
+  niger.update();
+
+  penicillium.update();
+  penicillium_violeta.update();
+  penicillium_rojo.update();
+
+
   updatePixels();
   puntero.x = centro.x + r * sin( a * angulo );
   puntero.y = centro.y + r * cos( a * angulo );
-  ellipse(puntero.x, puntero.y,5,5);
+  ellipse( puntero.x, puntero.y, 5, 5);
 }
 
 void keyPressed() {
@@ -98,57 +126,75 @@ void keyPressed() {
   //  //);
   //}
 
-  if (key == 'e'){
-    colonias[ 0 ].deploy(
+  if (key == '1'){
+  stemphylium.deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
   if (key == '2'){
-    colonias[ 1 ].deploy(
-      int( puntero.x ),
-      int( puntero.y )
-    );
-  }
-  if (key == '3'){
-    colonias[ 2 ].deploy(
-      int( puntero.x ),
-      int( puntero.y )
-    );
-  }
-  if (key == 'w'){
-    coloniasPasivas[ 0 ].deploy(
-      int( puntero.x ),
-      int( puntero.y )
-    );
-  }
-  if (key == '6'){
-    coloniasPasivas[ 1 ].deploy(
-      int( puntero.x ),
-      int( puntero.y )
-    );
-  }
-  if (key == '5'){
-    coloniasPasivas[ 2 ].deploy(
+  phialophora.deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
 
-  if (key == 'q'){
-    coloniasAgresivas[ 0 ].deploy(
+  if (key == '3'){
+  arborenens.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '4'){
+  cladosporum.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '5'){
+  eurotium.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '6'){
+  phoma.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == '7'){
+  aspergillus.deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
   if (key == '8'){
-    coloniasAgresivas[ 1 ].deploy(
+    flavus.deploy(
       int( puntero.x ),
       int( puntero.y )
     );
   }
   if (key == '9'){
-    coloniasAgresivas[ 2 ].deploy(
+  niger.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == 'q'){
+  penicillium.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == 'w'){
+  penicillium_rojo.deploy(
+      int( puntero.x ),
+      int( puntero.y )
+    );
+  }
+  if (key == 'e'){
+  penicillium_violeta.deploy(
       int( puntero.x ),
       int( puntero.y )
     );
@@ -163,28 +209,28 @@ void mira() {
     if ( r > radio ) r = -radio;
   }
   if (key == 't'){
-      angulo += .5 ;;
+      angulo += .5;
   }
 
-  //if(key == CODED) {
-  //  if( keyCode == LEFT ) {
-  //    //if ( r > -radio+paso ) r -= paso;
-  //    r -= paso;
-  //    if ( r < -radio ) r = radio;
-  //  }
-  //  if( keyCode == RIGHT ) {
-  //    //if ( r < radio - paso ) r += paso;
-  //    r += paso;
-  //    if ( r > radio ) r = -radio;
-  //  }
+  if(key == CODED) {
+    if( keyCode == LEFT ) {
+      //if ( r > -radio+paso ) r -= paso;
+      r -= paso;
+      if ( r < -radio ) r = radio;
+    }
+    if( keyCode == RIGHT ) {
+      //if ( r < radio - paso ) r += paso;
+      r += paso;
+      if ( r > radio ) r = -radio;
+    }
 
-  //  if( keyCode == UP ) {
-  //      angulo += .5 ;;
-  //  }
-  //  if( keyCode ==  DOWN ) {
-  //      angulo -= .5 ; 
-  //  }
-  //
-  //}
+    if( keyCode == UP ) {
+        angulo += .5 ;;
+    }
+    if( keyCode ==  DOWN ) {
+        angulo -= .5 ; 
+    }
+  
+  }
 }
 

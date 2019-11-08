@@ -6,19 +6,19 @@ class Colonia{
   int verical = 1;
 
 
-  // color col = color(
-  //   random(255),
-  //   random(255),
-  //   random(255)
-  // );
   color col;
+  color col2;
+  int cambio_color;
  
   int X;
   int Y;
+  PVector origen = new PVector(X,Y);
 
- Colonia( int i, color c, int h, int v ) {
+ Colonia( int i, color c, color c2, int cc, int h, int v ) {
     id = i;
     col = c;
+    col2 = c2;
+    cambio_color = cc;
     horizontal = h;
     verical = v;
     init();
@@ -31,19 +31,26 @@ class Colonia{
     }
   }
   void deploy( int x, int y ) {
-    print("inoculo: " + id + "\n");
     int X = x;
     int Y = y;
+    origen = new PVector(X,Y);
+    print("inoculo: " + id + "\n" + origen.x);
     placa[ X + Y * width ] = id;
   }
 
   void update() {
     for(int i = 0; i<particleCount; i++) {
+      color coloc  = col; 
+
+      if( i > particleCount * 0.5 ) coloc = col2;
+
+      if( !particles[i].cerca() ) coloc = col2;
+
       particles[i].update();
       if ( particles[i].stuck ){
         pixels[
          particles[i].y * width + particles[i].x
-        ] = color( col );
+        ] = color( coloc );
 
       }
     } 
@@ -53,8 +60,8 @@ class Colonia{
 
 class ColoniaAgresiva extends Colonia{
 
-  ColoniaAgresiva ( int i, color c, int h, int v ) {
-    super( i , c, h, v );
+  ColoniaAgresiva ( int i, color c, color c2, int cc, int h, int v ) {
+    super( i , c, c2, cc, h, v );
     ParticleAgresiva[] particles = new ParticleAgresiva[ particleCount ];
   }
 
@@ -77,8 +84,8 @@ class ColoniaPasiva extends Colonia{
   int particleCount = 100000;
   ParticlePasiva[] particles = new ParticlePasiva[ particleCount ];
  
-  ColoniaPasiva ( int i, color c, int h, int v ) {
-    super( i , c, h, v );
+  ColoniaPasiva ( int i, color c, color c2, int cc, int h, int v ) {
+    super( i , c, c2, cc, h, v );
   }
 
   void deploy( int x, int y ) {
