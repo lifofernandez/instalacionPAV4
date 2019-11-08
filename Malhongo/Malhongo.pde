@@ -40,6 +40,7 @@ float angulo = 0;
 
 void setup() {
   size( 700, 700, P2D );
+
   background(0);
   diametro = height;
   radio = diametro / 2;
