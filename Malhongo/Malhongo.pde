@@ -2,7 +2,7 @@
  * Simulate: Diffusion-Limited Aggregation 
  */
 
-int coloniasCantidad = 3;
+int particulasCantidad = 0;
 
 Colonia stemphylium         ;
 Colonia phialophora         ;
@@ -23,6 +23,7 @@ Colonia penicillium_rojo    ;
 //ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
 
 int[] placa;
+int cantidadPixeles;
 
 PVector centro;
 PVector puntero;
@@ -46,7 +47,6 @@ void setup() {
 
   puntero = new PVector( centro.x, centro.y );
 
-  int cantidadPixeles = width * height;
   cantidadPixeles = width * height;
 
   // create an array that
@@ -57,7 +57,7 @@ void setup() {
   }
 
   // id, color1, color2, cambio_color, horizontal, vertical  
-  stemphylium         = new Colonia( 1,  color( 255, 0,   0   ), color( 0,   255, 0   ), 40, 1,  1 );
+  stemphylium         = new Colonia( 1,  color( 255, 0,   0   ), color( 0,   255, 0   ), 70, -1,  2 );
   phialophora         = new Colonia( 2,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
   arborenens          = new Colonia( 3,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
   cladosporum         = new Colonia( 4,  color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1 );
@@ -76,6 +76,7 @@ void setup() {
 
 
 void draw() {
+  println(particulasCantidad);
 
   ellipse(centro.x, centro.y, diametro, diametro);
 
@@ -108,23 +109,16 @@ void draw() {
 }
 
 void keyPressed() {
-  //int keyIndex = -1;
-  //if (key >= 'A' && key <= 'Z') {
-  //  keyIndex = key - 'A';
-  //} else if (key >= 'a' && key <= 'z') {
-  //  keyIndex = key - 'a';
-  //}
-  //if (keyIndex != -1) {
-  //  colonias[keyIndex % coloniasCantidad ].deploy();
-  //  print( keyIndex );
-  //}
 
-  //if (key == '0'){
-  //  //colonias[ 0 ].deploy(
-  //  //  int( puntero.x ),
-  //  //  int( puntero.y )
-  //  //);
-  //}
+  //reset
+  if (key == '0'){
+    for(int i=0; i < cantidadPixeles; i++) {
+      placa[i] = -1 ;
+      //pixels[
+      // particles[i].y * width + particles[i].x
+      //] = color( 255 );
+    }
+  }
 
   if (key == '1'){
   stemphylium.deploy(

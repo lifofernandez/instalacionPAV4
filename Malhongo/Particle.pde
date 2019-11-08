@@ -44,6 +44,7 @@ class Particle{
       ) {
         stuck = true;
         placa[y * width + x] = cid;        
+        particulasCantidad +=1;
       }
     }
   }
