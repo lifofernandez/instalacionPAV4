@@ -1,5 +1,6 @@
 /**
- * Simulate: Diffusion-Limited Aggregation 
+ * Instalación: Proyecto Audio Visual 4
+ * Malena Schvartz
  */
 
 int particulasCantidad = 0;
@@ -27,11 +28,21 @@ int cantidadPixeles;
 
 PVector centro;
 PVector puntero;
+int paso = 10;
+int direction = 1;
 int desplazarX = 0;
 int desplazarY = 0;
 
-int paso = 10;
-int direction = 1;
+PVector mira;
+float mira_angulo;
+float mira_magnitud;
+float limite;
+boolean dentro = true;
+float disX;
+float disY;
+PVector reserva;
+PVector proyeccion;
+
 float distancia = 0;
 
 int diametro;
@@ -78,13 +89,14 @@ void setup() {
 
 
 void draw() {
+
   //println(particulasCantidad);
 
+  fill(255);
   ellipse(centro.x, centro.y, diametro, diametro);
 
-  if(keyPressed == true) {
-    mira();
-  }
+  ellipse( puntero.x, puntero.y, 5, 5);
+
   
   loadPixels();
 
@@ -105,35 +117,44 @@ void draw() {
 
   updatePixels();
 
-  ellipse( puntero.x, puntero.y, 5, 5);
 
-  //centro= new PVector(3,4);
-  //puntero = new PVector(4,3);
+  if(keyPressed == true) {
+    mira();
+  }
+  float disX = radio - puntero.x;
+  float disY = radio - puntero.y;
+  float limite = pow( disX, 2 ) + pow( disY, 2 );
+  dentro = limite <= pow( (radio), 2 );
+  if( !dentro ) puntero = new PVector(reserva.x,reserva.y);
+  reserva = new PVector( puntero.x, puntero.y );
 
-  PVector putero = new PVector( puntero.x - centro.x, puntero.y - centro.y );
-  float theta_putero =  atan( putero.x / putero.y );
-  float magnitud_putero = sqrt( pow( putero.x, 2 ) + pow( putero.y, 2 ) );
-  PVector reco = new PVector(
-    ( magnitud_putero ) * sin( theta_putero ),
-    ( magnitud_putero ) * cos( theta_putero )
-  );
-  println( putero.x,putero.y);
-  println( theta_putero );
-  println( reco.x, reco.y);
-  println("...");
+
+  //mira_angulo =  atan( mira.x / mira.y );
+  //mira_magnitud = sqrt( pow( mira.x, 2 ) + pow( mira.y, 2 ) );
+  //proyeccion = new PVector(
+  //  ( radio ) * sin( mira_angulo ),
+  //  ( radio ) * cos( mira_angulo )
+  //);
+  //fill(255,0,0);
+
+  //ellipse( proyeccion.x + centro.x, proyeccion.y +centro.y , 10, 10);
+
+
 }
 
 void keyPressed() {
 
+
+
   //reset
-  if (key == '0'){
-    for(int i=0; i < cantidadPixeles; i++) {
-      placa[i] = -1 ;
-      //pixels[
-      // particles[i].y * width + particles[i].x
-      //] = color( 255 );
-    }
-  }
+  //if (key == '0'){
+  //  for(int i=0; i < cantidadPixeles; i++) {
+  //    placa[i] = -1 ;
+  //    //pixels[
+  //    // particles[i].y * width + particles[i].x
+  //    //] = color( 255 );
+  //  }
+  //}
 
   if (key == '1'){
   stemphylium.deploy(
@@ -212,14 +233,7 @@ void keyPressed() {
 }
 
 void mira() {
-  // CURSOR
-  //if (key == 'f'){
-  //  r += paso;
-  //  if ( r > radio ) r = -radio;
-  //}
-  //if (key == 't'){
-  //    angulo += .5;
-  //}
+
 
   //distancia = sqrt(
   //   pow( centro.x - puntero.x, 2) + pow( centro.y - puntero.y, 2)
@@ -251,8 +265,9 @@ void mira() {
     }
   
   }
-  puntero.x += desplazarX * paso;
   puntero.y += desplazarY * paso;
+  puntero.x += desplazarX * paso;
+
   desplazarX = 0;
   desplazarY = 0;
 }
