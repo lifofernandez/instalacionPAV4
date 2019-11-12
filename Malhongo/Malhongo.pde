@@ -4,20 +4,20 @@
 
 int particulasCantidad = 0;
 
-Colonia stemphylium         ;
-Colonia phialophora         ;
-Colonia arborenens          ;
-Colonia cladosporum         ;
-Colonia eurotium            ;
-Colonia phoma               ;
+Colonia stemphylium;
+Colonia phialophora;
+Colonia arborenens;
+Colonia cladosporum;
+Colonia eurotium;
+Colonia phoma;
 
-Colonia aspergillus         ;
-Colonia flavus              ;
-Colonia niger               ;
+Colonia aspergillus;
+Colonia flavus;
+Colonia niger;
 
-Colonia penicillium         ;
-Colonia penicillium_violeta ;
-Colonia penicillium_rojo    ;
+Colonia penicillium;
+Colonia penicillium_violeta;
+Colonia penicillium_rojo;
 
 //ColoniaPasiva[] coloniasPasivas = new ColoniaPasiva[ coloniasCantidad ];
 //ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
@@ -27,9 +27,13 @@ int cantidadPixeles;
 
 PVector centro;
 PVector puntero;
+int desplazarX = 0;
+int desplazarY = 0;
+
 int paso = 10;
 int direction = 1;
 float distancia = 0;
+
 int diametro;
 int radio;
 
@@ -49,9 +53,6 @@ void setup() {
   puntero = new PVector( centro.x, centro.y );
 
   cantidadPixeles = width * height;
-
-  // create an array that
-  // stores the position of our particles
   placa = new int[ cantidadPixeles ];
   for(int i=0; i < cantidadPixeles; i++) {
     placa[i] = -1 ;
@@ -77,7 +78,7 @@ void setup() {
 
 
 void draw() {
-  println(particulasCantidad);
+  //println(particulasCantidad);
 
   ellipse(centro.x, centro.y, diametro, diametro);
 
@@ -102,11 +103,24 @@ void draw() {
   penicillium_violeta.update();
   penicillium_rojo.update();
 
-
   updatePixels();
-  puntero.x = centro.x + r * sin( a * angulo );
-  puntero.y = centro.y + r * cos( a * angulo );
+
   ellipse( puntero.x, puntero.y, 5, 5);
+
+  //centro= new PVector(3,4);
+  //puntero = new PVector(4,3);
+
+  PVector putero = new PVector( puntero.x - centro.x, puntero.y - centro.y );
+  float theta_putero =  atan( putero.x / putero.y );
+  float magnitud_putero = sqrt( pow( putero.x, 2 ) + pow( putero.y, 2 ) );
+  PVector reco = new PVector(
+    ( magnitud_putero ) * sin( theta_putero ),
+    ( magnitud_putero ) * cos( theta_putero )
+  );
+  println( putero.x,putero.y);
+  println( theta_putero );
+  println( reco.x, reco.y);
+  println("...");
 }
 
 void keyPressed() {
@@ -199,33 +213,47 @@ void keyPressed() {
 
 void mira() {
   // CURSOR
-  if (key == 'f'){
-    r += paso;
-    if ( r > radio ) r = -radio;
-  }
-  if (key == 't'){
-      angulo += .5;
-  }
+  //if (key == 'f'){
+  //  r += paso;
+  //  if ( r > radio ) r = -radio;
+  //}
+  //if (key == 't'){
+  //    angulo += .5;
+  //}
+
+  //distancia = sqrt(
+  //   pow( centro.x - puntero.x, 2) + pow( centro.y - puntero.y, 2)
+  //);
+
+ 
 
   if(key == CODED) {
     if( keyCode == LEFT ) {
       //if ( r > -radio+paso ) r -= paso;
-      r -= paso;
-      if ( r < -radio ) r = radio;
+      //r -= paso;
+      //if ( r < -radio ) r = radio;
+      desplazarX = -1;
     }
     if( keyCode == RIGHT ) {
       //if ( r < radio - paso ) r += paso;
-      r += paso;
-      if ( r > radio ) r = -radio;
+      //r += paso;
+      //if ( r > radio ) r = -radio;
+      desplazarX = 1;
     }
 
     if( keyCode == UP ) {
-        angulo += .5 ;;
+        //angulo += .5 ;;
+        desplazarY = -1;
     }
     if( keyCode ==  DOWN ) {
-        angulo -= .5 ; 
+        //angulo -= .5 ; 
+        desplazarY = 1;
     }
   
   }
+  puntero.x += desplazarX * paso;
+  puntero.y += desplazarY * paso;
+  desplazarX = 0;
+  desplazarY = 0;
 }
 

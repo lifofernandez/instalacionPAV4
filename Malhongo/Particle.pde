@@ -67,6 +67,7 @@ class Particle{
     int currentx = x;
     int currenty = y;
 
+    // sacar de aca
     float dis = sqrt(
      pow( currentx - centro.x, 2) + pow( currenty - centro.y, 2)
     );
@@ -92,6 +93,7 @@ class Particle{
       bottomy <= 0  || bottomy >= height
     ) return true;
 
+    // sacar de aca
     if (
       dis >= radio - paso
     ) return true;
