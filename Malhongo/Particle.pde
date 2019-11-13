@@ -24,24 +24,22 @@ class Particle{
 
   void update() {
     // move around
-    if (!stuck) {
+    if ( !stuck ) {
       x += round( random( -col.horizontal, col.horizontal) );
       y += round( random( -col.verical, col.verical ) );
       
       if (
-	x < 0 ||
-        y < 0 ||
-        x >= width ||
-	y >= height 
+	   x < 0
+        || y < 0
+        || x >= width
+	|| y >= height 
 	|| ocupado()
       ) {
          reset();
          return; 
       }
 
-      if (
-	!alone()
-      ) {
+      if ( !alone() ) {
         stuck = true;
         placa[y * width + x] = cid;        
         particulasCantidad +=1;
@@ -64,6 +62,7 @@ class Particle{
     float dis = sqrt(
      pow( currentx - col.origen.x, 2) + pow( currenty - col.origen.y, 2)
     );
+    println( dis % col.cambio_color );
     if( dis > col.cambio_color){
       return false;
     }

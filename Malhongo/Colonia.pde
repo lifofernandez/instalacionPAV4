@@ -1,12 +1,13 @@
 class Colonia{
+
   int id;
   String nombre;
   boolean viva = false;
   int particleCount = 100000;
+
   Particle[] particles = new Particle[ particleCount ];
   int horizontal = 1;
   int verical = 1;
-
 
   color col;
   color col2;
@@ -14,7 +15,7 @@ class Colonia{
  
   int X;
   int Y;
-  PVector origen = new PVector(X,Y);
+  PVector origen = new PVector( X, Y );
 
  Colonia( int i, String n, color c, color c2, int cc, int h, int v ) {
     id = i;
@@ -25,7 +26,6 @@ class Colonia{
     horizontal = h;
     verical = v;
     init();
-    //deploy();
   }
 
   void init() {
@@ -33,30 +33,29 @@ class Colonia{
       particles[i] = new Particle( this );
     }
   }
+
   void deploy( int x, int y ) {
-    viva = true;
-    int X = x;
-    int Y = y;
-    origen = new PVector(X,Y);
-    print("inoculo "+ nombre + ": " + id + "\n" + origen.x);
-    placa[ X + Y * width ] = id;
+    if(!viva){
+      viva = true;
+      int X = x;
+      int Y = y;
+      origen = new PVector(X,Y);
+      placa[ X + Y * width ] = id;
+      println( "Inocular: "+ nombre + " " + id );
+    }
   }
 
   void update() {
-    if(viva){
-     for(int i = 0; i<particleCount; i++) {
+    if( viva ){
+     for( int i = 0; i < particleCount; i++ ) {
        color coloc  = col; 
-
        if( i > particleCount * 0.5 ) coloc = col2;
-
        if( !particles[i].cerca() ) coloc = col2;
-
        particles[i].update();
        if ( particles[i].stuck ){
          pixels[
-          particles[i].y * width + particles[i].x
+            particles[i].y * width + particles[i].x
          ] = color( coloc );
-
        }
      } 
     } 
@@ -64,11 +63,11 @@ class Colonia{
 
   void muere() {
     viva = false;
-    for(int i = 0; i<particleCount; i++) {
+    for( int i = 0; i < particleCount; i++ ) {
       particles[i].muere();
       pixels[
        particles[i].y * width + particles[i].x
-      ] = color( 255 );
+      ] = color( fondo );
     } 
   }
 
