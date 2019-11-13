@@ -1,5 +1,6 @@
 class Colonia{
   int id;
+  String nombre;
   boolean viva = false;
   int particleCount = 100000;
   Particle[] particles = new Particle[ particleCount ];
@@ -15,8 +16,9 @@ class Colonia{
   int Y;
   PVector origen = new PVector(X,Y);
 
- Colonia( int i, color c, color c2, int cc, int h, int v ) {
+ Colonia( int i, String n, color c, color c2, int cc, int h, int v ) {
     id = i;
+    nombre = n;
     col = c;
     col2 = c2;
     cambio_color = cc;
@@ -36,7 +38,7 @@ class Colonia{
     int X = x;
     int Y = y;
     origen = new PVector(X,Y);
-    print("inoculo: " + id + "\n" + origen.x);
+    print("inoculo "+ nombre + ": " + id + "\n" + origen.x);
     placa[ X + Y * width ] = id;
   }
 
@@ -74,8 +76,8 @@ class Colonia{
 
 class ColoniaAgresiva extends Colonia{
 
-  ColoniaAgresiva ( int i, color c, color c2, int cc, int h, int v ) {
-    super( i , c, c2, cc, h, v );
+  ColoniaAgresiva ( int i, String n, color c, color c2, int cc, int h, int v ) {
+    super( i, n, c, c2, cc, h, v );
     ParticleAgresiva[] particles = new ParticleAgresiva[ particleCount ];
   }
 
@@ -98,8 +100,8 @@ class ColoniaPasiva extends Colonia{
   int particleCount = 100000;
   ParticlePasiva[] particles = new ParticlePasiva[ particleCount ];
  
-  ColoniaPasiva ( int i, color c, color c2, int cc, int h, int v ) {
-    super( i , c, c2, cc, h, v );
+  ColoniaPasiva ( int i, String n,color c, color c2, int cc, int h, int v ) {
+    super( i, n, c, c2, cc, h, v );
   }
 
   void deploy( int x, int y ) {

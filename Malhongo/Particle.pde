@@ -54,10 +54,7 @@ class Particle{
     //return; 
     stuck = false;
     placa[y * width + x] = -1;        
-    //reset();
-    //    particulasCantidad +=1;
-    //  }
-    //}
+    particulasCantidad -=1;
   }
 
   boolean cerca() {
