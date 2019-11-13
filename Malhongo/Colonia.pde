@@ -5,7 +5,8 @@ class Colonia{
   boolean viva = false;
   int particleCount = 100000;
 
-  Particle[] particles = new Particle[ particleCount ];
+  //Particle[] particles = new Particle[ particleCount ];
+  ArrayList<Particle> particles = new ArrayList<Particle>();
   int horizontal = 1;
   int verical = 1;
 
@@ -30,7 +31,8 @@ class Colonia{
 
   void init() {
     for( int i = 0; i < particleCount; i++ ) {
-      particles[i] = new Particle( this );
+      //particles[i] = new Particle( this );
+      particles.add(new Particle( this ));
     }
   }
 
@@ -41,20 +43,28 @@ class Colonia{
       int Y = y;
       origen = new PVector(X,Y);
       placa[ X + Y * width ] = id;
-      println( "Inocular: "+ nombre + " " + id );
+      println( "Inocular " + id + ": " + nombre );
     }
   }
 
   void update() {
     if( viva ){
-     for( int i = 0; i < particleCount; i++ ) {
+     for( int i = 0; i < particles.size(); i++ ) {
+       Particle part = particles.get(i);
        color coloc  = col; 
-       if( i > particleCount * 0.5 ) coloc = col2;
-       if( !particles[i].cerca() ) coloc = col2;
-       particles[i].update();
-       if ( particles[i].stuck ){
+       if( i % 10 == 0 ){
+          coloc = col2;
+       }
+       if( part.lejos() ){
+        coloc = col2;
+          if( i % 5 == 0 ){
+             coloc = col;
+          }
+       }
+       part.update();
+       if ( part.stuck ){
          pixels[
-            particles[i].y * width + particles[i].x
+            part.y * width + part.x
          ] = color( coloc );
        }
      } 
@@ -62,53 +72,57 @@ class Colonia{
   }
 
   void muere() {
-    viva = false;
-    for( int i = 0; i < particleCount; i++ ) {
-      particles[i].muere();
-      pixels[
-       particles[i].y * width + particles[i].x
-      ] = color( fondo );
-    } 
-  }
-
-}
-
-class ColoniaAgresiva extends Colonia{
-
-  ColoniaAgresiva ( int i, String n, color c, color c2, int cc, int h, int v ) {
-    super( i, n, c, c2, cc, h, v );
-    ParticleAgresiva[] particles = new ParticleAgresiva[ particleCount ];
-  }
-
-  void deploy( int x, int y ) {
-    print("Inoculo Agresiva: " + id + "\n");
-    int X = x;
-    int Y = y;
-    placa[ X + Y * width ] = id;
-  }
-
-  void init() {
-    for( int i = 0; i < particleCount; i++ ) {
-      particles[i] = new ParticleAgresiva( this );
+    if( viva ){
+      viva = false;
+      for( int i = 0; i < particles.size(); i++ ) {
+        Particle part = particles.get(i);
+        part.muere();
+        //particles.remove(i);
+        //pixels[
+        // particles[i].y * width + particles[i].x
+        //] = color( fondo );
+      } 
     }
   }
 
 }
 
-class ColoniaPasiva extends Colonia{
-  int particleCount = 100000;
-  ParticlePasiva[] particles = new ParticlePasiva[ particleCount ];
- 
-  ColoniaPasiva ( int i, String n,color c, color c2, int cc, int h, int v ) {
-    super( i, n, c, c2, cc, h, v );
-  }
-
-  void deploy( int x, int y ) {
-    print("Inoculo pasiva: " + id + "\n");
-    int X = x;
-    int Y = y;
-    placa[ X + Y * width ] = id;
-  }
-
-
-}
+//class ColoniaAgresiva extends Colonia{
+//
+//  ColoniaAgresiva ( int i, String n, color c, color c2, int cc, int h, int v ) {
+//    super( i, n, c, c2, cc, h, v );
+//    ParticleAgresiva[] particles = new ParticleAgresiva[ particleCount ];
+//  }
+//
+//  void deploy( int x, int y ) {
+//    print("Inoculo Agresiva: " + id + "\n");
+//    int X = x;
+//    int Y = y;
+//    placa[ X + Y * width ] = id;
+//  }
+//
+//  void init() {
+//    for( int i = 0; i < particleCount; i++ ) {
+//      particles[i] = new ParticleAgresiva( this );
+//    }
+//  }
+//
+//}
+//
+//class ColoniaPasiva extends Colonia{
+//  int particleCount = 100000;
+//  ParticlePasiva[] particles = new ParticlePasiva[ particleCount ];
+// 
+//  ColoniaPasiva ( int i, String n,color c, color c2, int cc, int h, int v ) {
+//    super( i, n, c, c2, cc, h, v );
+//  }
+//
+//  void deploy( int x, int y ) {
+//    print("Inoculo pasiva: " + id + "\n");
+//    int X = x;
+//    int Y = y;
+//    placa[ X + Y * width ] = id;
+//  }
+//
+//
+//}

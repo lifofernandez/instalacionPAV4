@@ -80,7 +80,7 @@ void setup() {
   colonias[0]  = new Colonia(  0, "bleaching",           color( 0,   0,   0   ), color( 0,   0,   0   ), 70, 1,  1 );
 
   colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, -1, 2 );
-  colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 40, 1,  1 );
+  colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 70, 1,  1 );
   colonias[3]  = new Colonia(  3, "arborenens",          color( 0,   0,   255 ), color( 255, 0,   255 ), 40, 1,  1 );
 
   colonias[4]  = new Colonia(  4, "cladosporum",         color( 255, 255, 0   ), color( 0,   0,   255 ), 40, 1,  1 );

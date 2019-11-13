@@ -6,6 +6,7 @@ class Particle{
   int cid;
   Colonia col;
   boolean stuck = false;
+  boolean viva = false;
 
   Particle( Colonia c ) {
     col = c;
@@ -35,14 +36,15 @@ class Particle{
 	|| y >= height 
 	|| ocupado()
       ) {
-         reset();
+         //reset();
          return; 
       }
 
       if ( !alone() ) {
         stuck = true;
+        viva = true;
         placa[y * width + x] = cid;        
-        particulasCantidad +=1;
+        particulasCantidad += 1;
       }
     }
   }
@@ -50,23 +52,24 @@ class Particle{
   void muere() {
     //stuck = true;
     //return; 
-    stuck = false;
-    placa[y * width + x] = -1;        
-    particulasCantidad -=1;
+    if( viva ){
+      stuck = false;
+      placa[y * width + x] = -1;        
+      particulasCantidad -= 1;
+    }
   }
 
-  boolean cerca() {
+  boolean lejos() {
     int currentx = x;
     int currenty = y;
 
     float dis = sqrt(
      pow( currentx - col.origen.x, 2) + pow( currenty - col.origen.y, 2)
     );
-    println( dis % col.cambio_color );
-    if( dis > col.cambio_color){
-      return false;
+    if( dis > random( col.cambio_color - 30, col.cambio_color - 30 ) ){
+      return true;
     }
-    return true;
+    return false;
  }
 
   // returns true if no neighboring pixels
@@ -93,6 +96,7 @@ class Particle{
     //  topy <= 0     || topy >= height || 
     //  bottomy <= 0  || bottomy >= height
     //) return true;
+
     if (
       leftx <= 0    || leftx >= width || 
       rightx <= 0   || rightx >= width || 
@@ -142,26 +146,25 @@ class Particle{
 
 }
 
-class ParticleAgresiva extends Particle{
-  ParticleAgresiva( ColoniaAgresiva c ) {
-    super( c );
-  }
-
-  boolean ocupado() {
-    int currentx = x;
-    int currenty = y;
-    currenty *= width;
-    if (
-      placa[ currenty + currentx ] >= 3
-    ) return true;
-
-    return false;
-  }  
-}
-
-
-class ParticlePasiva extends Particle{
-  ParticlePasiva( Colonia c ) {
-    super( c );
-  }
-}
+//class ParticleAgresiva extends Particle{
+//  ParticleAgresiva( ColoniaAgresiva c ) {
+//    super( c );
+//  }
+//
+//  boolean ocupado() {
+//    int currentx = x;
+//    int currenty = y;
+//    currenty *= width;
+//    if (
+//      placa[ currenty + currentx ] >= 3
+//    ) return true;
+//
+//    return false;
+//  }  
+//}
+//
+//class ParticlePasiva extends Particle{
+//  ParticlePasiva( Colonia c ) {
+//    super( c );
+//  }
+//}
