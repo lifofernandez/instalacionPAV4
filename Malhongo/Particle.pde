@@ -49,6 +49,17 @@ class Particle{
     }
   }
 
+  void muere() {
+    //stuck = true;
+    //return; 
+    stuck = false;
+    placa[y * width + x] = -1;        
+    //reset();
+    //    particulasCantidad +=1;
+    //  }
+    //}
+  }
+
   boolean cerca() {
     int currentx = x;
     int currenty = y;

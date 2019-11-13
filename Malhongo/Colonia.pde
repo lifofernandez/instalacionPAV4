@@ -1,5 +1,6 @@
 class Colonia{
   int id;
+  boolean viva = false;
   int particleCount = 100000;
   Particle[] particles = new Particle[ particleCount ];
   int horizontal = 1;
@@ -31,6 +32,7 @@ class Colonia{
     }
   }
   void deploy( int x, int y ) {
+    viva = true;
     int X = x;
     int Y = y;
     origen = new PVector(X,Y);
@@ -39,20 +41,32 @@ class Colonia{
   }
 
   void update() {
+    if(viva){
+     for(int i = 0; i<particleCount; i++) {
+       color coloc  = col; 
+
+       if( i > particleCount * 0.5 ) coloc = col2;
+
+       if( !particles[i].cerca() ) coloc = col2;
+
+       particles[i].update();
+       if ( particles[i].stuck ){
+         pixels[
+          particles[i].y * width + particles[i].x
+         ] = color( coloc );
+
+       }
+     } 
+    } 
+  }
+
+  void muere() {
+    viva = false;
     for(int i = 0; i<particleCount; i++) {
-      color coloc  = col; 
-
-      if( i > particleCount * 0.5 ) coloc = col2;
-
-      if( !particles[i].cerca() ) coloc = col2;
-
-      particles[i].update();
-      if ( particles[i].stuck ){
-        pixels[
-         particles[i].y * width + particles[i].x
-        ] = color( coloc );
-
-      }
+      particles[i].muere();
+      pixels[
+       particles[i].y * width + particles[i].x
+      ] = color( 255 );
     } 
   }
 

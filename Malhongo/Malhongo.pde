@@ -147,14 +147,24 @@ void keyPressed() {
 
 
   //reset
-  //if (key == '0'){
-  //  for(int i=0; i < cantidadPixeles; i++) {
-  //    placa[i] = -1 ;
-  //    //pixels[
-  //    // particles[i].y * width + particles[i].x
-  //    //] = color( 255 );
-  //  }
-  //}
+  if (key == '0'){
+    loadPixels();
+    stemphylium.muere();
+    phialophora.muere();
+    arborenens.muere();
+    cladosporum.muere();
+    eurotium.muere();
+    phoma.muere();
+
+    aspergillus.muere();
+    flavus.muere();
+    niger.muere();
+
+    penicillium.muere();
+    penicillium_violeta.muere();
+    penicillium_rojo.muere();
+    updatePixels();
+  }
 
   if (key == '1'){
   stemphylium.deploy(
