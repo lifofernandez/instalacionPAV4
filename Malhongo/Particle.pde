@@ -1,4 +1,3 @@
-
 class Particle{
   int x, y;
   PVector origen;
@@ -49,7 +48,7 @@ class Particle{
     }
   }
 
-  void muere() {
+  boolean muere() {
     //stuck = true;
     //return; 
     if( viva ){
@@ -57,6 +56,7 @@ class Particle{
       placa[y * width + x] = -1;        
       particulasCantidad -= 1;
     }
+    return true;
   }
 
   boolean lejos() {
@@ -64,38 +64,25 @@ class Particle{
     int currenty = y;
 
     float dis = sqrt(
-     pow( currentx - col.origen.x, 2) + pow( currenty - col.origen.y, 2)
+      pow( currentx - col.origen.x, 2) + pow( currenty - col.origen.y, 2)
     );
-    if( dis > random( col.cambio_color - 30, col.cambio_color - 30 ) ){
+    //if( dis > random( col.cambio_color - 30, col.cambio_color + 30 ) ){
+    if( dis > col.cambio_color ){
       return true;
     }
     return false;
- }
+  }
 
   // returns true if no neighboring pixels
   boolean alone() {
     int currentx = x;
     int currenty = y;
 
-    // sacar de aca
-    float dis = sqrt(
-     pow( currentx - centro.x, 2) + pow( currenty - centro.y, 2)
-    );
-
     // get positions
     int leftx   = currentx - 1;
     int rightx  = currentx + 1;
     int topy    = currenty - 1;
     int bottomy = currenty + 1;
-
-    //if (
-    //  currentx <= 0 || currentx >= width || 
-    //  leftx <= 0    || leftx >= width || 
-    //  rightx <= 0   || rightx >= width || 
-    //  currenty <= 0 || currenty >= height || 
-    //  topy <= 0     || topy >= height || 
-    //  bottomy <= 0  || bottomy >= height
-    //) return true;
 
     if (
       leftx <= 0    || leftx >= width || 
@@ -104,9 +91,12 @@ class Particle{
       bottomy <= 0  || bottomy >= height
     ) return true;
 
-    // sacar de aca
+    // remota
+    float dis = sqrt(
+     pow( currentx - centro.x, 2) + pow( currenty - centro.y, 2)
+    );
     if (
-      dis >= radio - paso
+      dis >= random(radio - 50,radio - 10)
     ) return true;
 
     // pre multiply the ys

@@ -1,24 +1,24 @@
 class Colonia{
-
+ 
   int id;
   String nombre;
   boolean viva = false;
-  int particleCount = 100000;
-
+  int particleCount = 50000;
+ 
   //Particle[] particles = new Particle[ particleCount ];
   ArrayList<Particle> particles = new ArrayList<Particle>();
   int horizontal = 1;
   int verical = 1;
-
+ 
   color col;
   color col2;
   int cambio_color;
- 
+  
   int X;
   int Y;
   PVector origen = new PVector( X, Y );
-
- Colonia( int i, String n, color c, color c2, int cc, int h, int v ) {
+ 
+  Colonia( int i, String n, color c, color c2, int cc, int h, int v ) {
     id = i;
     nombre = n;
     col = c;
@@ -26,17 +26,17 @@ class Colonia{
     cambio_color = cc;
     horizontal = h;
     verical = v;
-    init();
   }
 
   void init() {
     for( int i = 0; i < particleCount; i++ ) {
       //particles[i] = new Particle( this );
-      particles.add(new Particle( this ));
+      particles.add( new Particle( this ) );
     }
   }
 
   void deploy( int x, int y ) {
+    init();
     if(!viva){
       viva = true;
       int X = x;
@@ -74,14 +74,29 @@ class Colonia{
   void muere() {
     if( viva ){
       viva = false;
-      for( int i = 0; i < particles.size(); i++ ) {
+      //for( int i = 0; i < particles.size(); i++ ) {
+      //  Particle part = particles.get(i);
+      //  if(part.muere()){
+      //    particles.remove(i);
+      //  }
+      //  //pixels[
+      //  // particles[i].y * width + particles[i].x
+      //  //] = color( fondo );
+      //} 
+
+      placa[ int(origen.x) + int(origen.y) * width ] = -1;
+      for ( int i = particles.size() - 1; i >= 0; i-- ) {
         Particle part = particles.get(i);
         part.muere();
-        //particles.remove(i);
-        //pixels[
-        // particles[i].y * width + particles[i].x
-        //] = color( fondo );
-      } 
+        if ( part.stuck ){
+          pixels[
+            part.y * width + part.x
+          ] = color( fondo );
+        }
+        //if (part.muere()) {
+        particles.remove(i);
+        //}
+      }
     }
   }
 

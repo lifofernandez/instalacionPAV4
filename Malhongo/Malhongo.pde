@@ -28,7 +28,7 @@
 //ColoniaPasiva[] coloniasPasivas = new ColoniaPasiva[ coloniasCantidad ];
 //ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
 
-color fondo = color(255);
+color fondo = color( 0 );
 int particulasCantidad = 0;
 int coloniasCantidad = 13;
 Colonia[] colonias = new Colonia[ coloniasCantidad ];
@@ -40,6 +40,7 @@ int cantidadPixeles;
 PVector centro;
 PVector puntero;
 int paso = 10;
+int mira = 10;
 int direction = 1;
 int desplazarX = 0;
 int desplazarY = 0;
@@ -77,9 +78,9 @@ void setup() {
   }
 
   // id, nombre, color1, color2, cambio_color, difusión horizontal, difusión vertical  
-  colonias[0]  = new Colonia(  0, "bleaching",           color( 0,   0,   0   ), color( 0,   0,   0   ), 70, 1,  1 );
+  colonias[0]  = new Colonia(  0, "bleaching",           color( 0,   0,   0   ), color( 0,   0,   0   ), 70, 2,  1 );
 
-  colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, -1, 2 );
+  colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, 2,  3 );
   colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 70, 1,  1 );
   colonias[3]  = new Colonia(  3, "arborenens",          color( 0,   0,   255 ), color( 255, 0,   255 ), 40, 1,  1 );
 
@@ -102,7 +103,11 @@ void draw() {
 
   fill( fondo );
   ellipse(centro.x, centro.y, diametro, diametro);
-  ellipse( puntero.x, puntero.y, 5, 5);
+  stroke( 255);
+  // ellipse( puntero.x, puntero.y, 5, 5);
+  
+  line( puntero.x-mira, puntero.y, puntero.x+mira, puntero.y);
+  line( puntero.x, puntero.y-mira, puntero.x, puntero.y+mira);
 
   loadPixels();
   for( int i = 0; i < coloniasCantidad; ++i ) {
