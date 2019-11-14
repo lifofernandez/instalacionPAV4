@@ -6,6 +6,9 @@ class Particle{
   Colonia col;
   boolean stuck = false;
   boolean viva = false;
+  boolean muerta = false;
+
+  int  nacimiento = millis();
 
   Particle( Colonia c ) {
     col = c;
@@ -44,8 +47,14 @@ class Particle{
         viva = true;
         placa[ y * width + x ] = cid;        
         particulasCantidad += 1;
+        nacimiento = millis();
       }
     }
+    //else{
+      if( millis() - nacimiento >= 3000){
+         muere();
+      }
+    //}
   }
 
   boolean muere() {
@@ -54,10 +63,11 @@ class Particle{
     // println("matando " + col.nombre);
     // println("matando " + col.nombre);
     if( viva ){
-      stuck = false;
-      //pixels[
-      //   y * width + x
-      //] = color( 255 );
+      muerta = true;
+      //stuck = false;
+      pixels[
+         y * width + x
+      ] = color( fondo );
       placa[y * width + x] = -1;        
       particulasCantidad -= 1;
     }

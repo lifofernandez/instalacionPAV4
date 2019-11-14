@@ -18,8 +18,9 @@ class Colonia{
   PVector origen = new PVector( X, Y );
 
   int nacimiento;
+  int espectativa;
  
-  Colonia( int i, String n, color c, color c2, int cc, int h, int v ) {
+  Colonia( int i, String n, color c, color c2, int cc, int h, int v, int e ) {
     id = i;
     nombre = n;
     col = c;
@@ -27,6 +28,7 @@ class Colonia{
     cambio_color = cc;
     horizontal = h;
     verical = v;
+    espectativa = e;
   }
 
   void init() {
@@ -75,6 +77,11 @@ class Colonia{
           pixels[
              part.y * width + part.x
           ] = color( coloc );
+        }
+        if ( part.muerta ){
+          pixels[
+             part.y * width + part.x
+          ] = color( fondo );
         }
       } 
     } 
