@@ -101,7 +101,10 @@ void setup() {
 
 void draw() {
 
+  //fill( 255 );
+  //rect(  0, 0, diametro, diametro);
   fill( fondo );
+  stroke( 12);
   ellipse(centro.x, centro.y, diametro, diametro);
   stroke( 255);
   // ellipse( puntero.x, puntero.y, 5, 5);
@@ -117,7 +120,6 @@ void draw() {
   if(keyPressed == true) {
     puntero();
   }
-
   float disX = radio - puntero.x;
   float disY = radio - puntero.y;
   float limite = pow( disX, 2 ) + pow( disY, 2 );
@@ -125,17 +127,20 @@ void draw() {
   if( !dentro ) puntero = new PVector( reserva.x, reserva.y );
   reserva = new PVector( puntero.x, puntero.y );
 
+  //fill( 0, 55);
+  //ellipse(centro.x, centro.y, diametro, diametro);
+
 }
 
 void keyPressed() {
 
   //reset
   if (key == '0'){
-    loadPixels();
+    //loadPixels();
     for(int i=0; i < coloniasCantidad; i++) {
       colonias[i].muere() ;
     }
-    updatePixels();
+    //updatePixels();
   }
 
   if (key == '1'){

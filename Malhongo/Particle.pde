@@ -42,7 +42,7 @@ class Particle{
       if ( !alone() ) {
         stuck = true;
         viva = true;
-        placa[y * width + x] = cid;        
+        placa[ y * width + x ] = cid;        
         particulasCantidad += 1;
       }
     }
@@ -51,8 +51,13 @@ class Particle{
   boolean muere() {
     //stuck = true;
     //return; 
+    // println("matando " + col.nombre);
+    // println("matando " + col.nombre);
     if( viva ){
       stuck = false;
+      //pixels[
+      //   y * width + x
+      //] = color( 255 );
       placa[y * width + x] = -1;        
       particulasCantidad -= 1;
     }
@@ -64,9 +69,9 @@ class Particle{
     int currenty = y;
 
     float dis = sqrt(
-      pow( currentx - col.origen.x, 2) + pow( currenty - col.origen.y, 2)
+      pow( currentx - col.origen.x, 2) +
+      pow( currenty - col.origen.y, 2)
     );
-    //if( dis > random( col.cambio_color - 30, col.cambio_color + 30 ) ){
     if( dis > col.cambio_color ){
       return true;
     }
