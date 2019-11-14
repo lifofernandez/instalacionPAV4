@@ -3,62 +3,75 @@ class Colonia{
   int id;
   String nombre;
   boolean viva = false;
+  boolean muriendo = false;
   int particleCount = 50000;
  
   ArrayList<Particle> particles = new ArrayList<Particle>();
+  int vivas;
   int horizontal = 1;
   int verical = 1;
  
   color col;
   color col2;
   int cambio_color;
+  color reserva;
+  color reserva2;
+
   
   int X;
   int Y;
   PVector origen = new PVector( X, Y );
 
   int nacimiento;
-  int espectativa;
+  int espectativa = 10000;
+
+  int cambio = 0;
+
  
   Colonia( int i, String n, color c, color c2, int cc, int h, int v, int e ) {
     id = i;
     nombre = n;
     col = c;
     col2 = c2;
+    reserva = c;
+    reserva2 = c2;
     cambio_color = cc;
     horizontal = h;
     verical = v;
-    espectativa = e;
+    espectativa = 1000 * e;
   }
 
   void init() {
-    nacimiento = millis();
     for( int i = 0; i < particleCount; i++ ) {
       particles.add( new Particle( this ) );
     }
+    viva = true;
   }
 
   void deploy( int x, int y ) {
-    init();
     if(!viva){
-      viva = true;
+      nacimiento = millis();
+      init();
       int X = x;
       int Y = y;
-      origen = new PVector(X,Y);
+      origen = new PVector( X , Y );
       placa[ X + Y * width ] = id;
       println( "Inocular " + id + ": " + nombre );
-    } else {
-      println( "Mato " + id + ": " + nombre );
-      muere();
+    }else{
+      println( "Ya está viva" + id + ": " + nombre );
+      col  = color( 255 ); 
+      cambio = millis();
     }
   }
 
   void update() {
-
-     //if( millis() - nacimiento >= 3000){
-     // muere();
-     //}
-
+    if( viva && millis() - nacimiento >= espectativa * 2 ){
+      muriendo = true;
+    }
+    if( cambio > 0 && millis() - cambio >= 500 ){
+      col  = reserva; 
+      col2  = reserva2; 
+    }
     if( viva ){
       for( int i = 0; i < particles.size(); i++ ) {
         Particle part = particles.get(i);
@@ -73,35 +86,39 @@ class Colonia{
           }
         }
         part.update();
-        if ( part.stuck ){
+        if ( part.stuck && !part.muerta){
           pixels[
              part.y * width + part.x
           ] = color( coloc );
+          vivas++;
         }
+
         if ( part.muerta ){
-          pixels[
-             part.y * width + part.x
-          ] = color( fondo );
+          //pixels[
+          //   part.y * width + part.x
+          //] = color( fondo );
+          vivas--;
+          //particles.remove( i );
         }
       } 
+
+      if( muriendo && vivas < 0){
+        muere();
+      }
     } 
   }
 
   void muere() {
     if( viva ){
+      println( "Mato " + id + ": " + nombre );
+      muriendo = false;
       viva = false;
-
-      int ultima_muerte = millis();
       // Borra centro
       placa[ int(origen.x) + int(origen.y) * width ] = -1;
       for ( int i = particles.size() - 1; i >= 0; i-- ) {
-        //if( millis() - ultima_muerte >= 100){
-           ultima_muerte = millis();
-           //println(ultima_muerte - nacimiento);
            Particle part = particles.get(i);
            part.muere();
            particles.remove(i);
-        //}
       }
     }
   }

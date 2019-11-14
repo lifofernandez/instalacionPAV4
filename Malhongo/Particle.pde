@@ -27,7 +27,7 @@ class Particle{
 
   void update() {
     // move around
-    if ( !stuck ) {
+    if ( !stuck && !col.muriendo ) {
       x += round( random( -col.horizontal, col.horizontal) );
       y += round( random( -col.verical, col.verical ) );
       
@@ -45,31 +45,25 @@ class Particle{
       if ( !alone() ) {
         stuck = true;
         viva = true;
+        muerta = false;
         placa[ y * width + x ] = cid;        
-        particulasCantidad += 1;
         nacimiento = millis();
       }
     }
-    //else{
-      if( millis() - nacimiento >= 3000){
-         muere();
-      }
-    //}
+   //else{
+    if( millis() - nacimiento >=  col.espectativa ){
+       muere();
+    }
+   //}
   }
 
   boolean muere() {
-    //stuck = true;
-    //return; 
-    // println("matando " + col.nombre);
-    // println("matando " + col.nombre);
     if( viva ){
       muerta = true;
-      //stuck = false;
       pixels[
          y * width + x
       ] = color( fondo );
       placa[y * width + x] = -1;        
-      particulasCantidad -= 1;
     }
     return true;
   }
@@ -77,7 +71,6 @@ class Particle{
   boolean lejos() {
     int currentx = x;
     int currenty = y;
-
     float dis = sqrt(
       pow( currentx - col.origen.x, 2) +
       pow( currenty - col.origen.y, 2)
