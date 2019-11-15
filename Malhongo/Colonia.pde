@@ -59,7 +59,8 @@ class Colonia{
       println( "Inocular " + id + ": " + nombre );
     }else{
       println( "Ya está viva" + id + ": " + nombre );
-      col  = color( 255 ); 
+      col  = color( 255,150 ); 
+      col2  = color( 255,150 ); 
       cambio = millis();
     }
   }
@@ -78,11 +79,26 @@ class Colonia{
         color coloc  = col; 
         //spread
         if( i % 10 == 0 ) coloc = col2; 
-        if( part.lejos() ){
+        
+        if( part.remotez() > cambio_color * 0.75 ){
           coloc = col2;
           //spread
           if( i % 5 == 0 ){
              coloc = col;
+          }
+          if( part.remotez() > cambio_color * 1.25 ){
+            coloc = col;
+            //spread
+            if( i % 5 == 0 ){
+               coloc = col2;
+            }
+            if( part.remotez() > cambio_color * 1.5 ){
+              coloc = col;
+              //spread
+              if( i % 5 == 0 ){
+                 coloc = col2;
+              }
+            }
           }
         }
         part.update();

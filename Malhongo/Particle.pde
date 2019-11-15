@@ -68,17 +68,17 @@ class Particle{
     return true;
   }
 
-  boolean lejos() {
+  float remotez() {
     int currentx = x;
     int currenty = y;
     float dis = sqrt(
       pow( currentx - col.origen.x, 2) +
       pow( currenty - col.origen.y, 2)
     );
-    if( dis > col.cambio_color ){
-      return true;
-    }
-    return false;
+    //if( dis > col.cambio_color ){
+    //  return true;
+    //}
+    return dis;
   }
 
   // returns true if no neighboring pixels
@@ -99,7 +99,7 @@ class Particle{
       bottomy <= 0  || bottomy >= height
     ) return true;
 
-    // remota
+    // limite 
     float dis = sqrt(
      pow( currentx - centro.x, 2) + pow( currenty - centro.y, 2)
     );
