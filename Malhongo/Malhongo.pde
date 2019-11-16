@@ -19,7 +19,6 @@
  *
  */
 
-
 color fondo = color( 0 );
 
 int coloniasCantidad = 13;
@@ -28,38 +27,29 @@ Colonia[] colonias = new Colonia[ coloniasCantidad ];
 int[] placa;
 int cantidadPixeles;
 
+int diametro;
+int radio;
+
 PVector centro;
 PVector puntero;
 int paso = 10;
 int mira = 10;
-int direction = 1;
 int desplazarX = 0;
 int desplazarY = 0;
-float limite;
+float posicion;
 boolean dentro = true;
 float disX;
 float disY;
 PVector reserva;
-PVector proyeccion;
 
-float distancia = 0;
-
-int diametro;
-int radio;
-
-//float r = 50;
-//int numPoints= 20;
-//float a = TWO_PI / ( float )numPoints;
-//float angulo = 0;
-
-//ColoniaPasiva[] coloniasPasivas = new ColoniaPasiva[ coloniasCantidad ];
-//ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
+// ColoniaPasiva[] coloniasPasivas = new ColoniaPasiva[ coloniasCantidad ];
+// ColoniaAgresiva[] coloniasAgresivas = new ColoniaAgresiva[ coloniasCantidad ];
 
 
 void setup() {
   size( 700, 700 );
+  background(fondo);
 
-  background(0);
   diametro = height;
   radio = diametro / 2;
   centro = new PVector( width / 2 , height / 2 );
@@ -73,7 +63,7 @@ void setup() {
   }
 
   // id, nombre, color1, color2, cambio_color, difusión horizontal, difusión vertical, tiempo de vida
-  colonias[0]  = new Colonia(  0, "blanqueo",           color( fondo   ), color( fondo ), 70, 2,  1, 30);
+  colonias[0]  = new Colonia(  0, "blanqueo",            color( fondo   ), color( fondo ), 70, 2,  1, 30);
 
   colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, 2,  3, 30);
   colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 70, 1,  1, 50);
@@ -94,12 +84,12 @@ void setup() {
 void draw() {
 
   fill( fondo );
-  stroke( 12);
-  ellipse(centro.x, centro.y, diametro, diametro);
+  stroke( 12 );
+  ellipse( centro.x, centro.y, diametro, diametro );
 
-  stroke(255);
-  line( puntero.x-mira, puntero.y, puntero.x+mira, puntero.y);
-  line( puntero.x, puntero.y-mira, puntero.x, puntero.y+mira);
+  stroke( 255 );
+  line( puntero.x - mira, puntero.y, puntero.x + mira, puntero.y);
+  line( puntero.x, puntero.y - mira, puntero.x, puntero.y + mira);
 
   loadPixels();
   for( int i = 0; i < coloniasCantidad; ++i ) {
@@ -109,10 +99,8 @@ void draw() {
   if(keyPressed == true) {
     puntero();
   }
-  float disX = radio - puntero.x;
-  float disY = radio - puntero.y;
-  float limite = pow( disX, 2 ) + pow( disY, 2 );
-  dentro = limite <= pow( (radio), 2 );
+  posicion = pow( radio - puntero.y, 2 ) + pow( radio - puntero.x, 2 );
+  dentro = posicion <= pow( (radio - mira ), 2 );
   if( !dentro ) puntero = new PVector( reserva.x, reserva.y );
   reserva = new PVector( puntero.x, puntero.y );
 
@@ -122,13 +110,10 @@ void keyPressed() {
 
   //reset
   if (key == '0'){
-    //loadPixels();
     for(int i=0; i < coloniasCantidad; i++) {
       colonias[i].muere() ;
     }
-    //updatePixels();
   }
-
   if (key == '1'){
     colonias[1].deploy( int( puntero.x ), int( puntero.y ) );
   }
@@ -169,17 +154,17 @@ void keyPressed() {
 
 void puntero() {
   if(key == CODED) {
-    if( keyCode == LEFT ) {
+    if( keyCode == LEFT ){
       desplazarX = -1;
     }
-    if( keyCode == RIGHT ) {
+    if( keyCode == RIGHT ){
       desplazarX = 1;
     }
 
-    if( keyCode == UP ) {
+    if( keyCode == UP ){
       desplazarY = -1;
     }
-    if( keyCode ==  DOWN ) {
+    if( keyCode ==  DOWN ){
       desplazarY = 1;
     }
   }

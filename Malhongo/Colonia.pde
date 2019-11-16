@@ -1,11 +1,10 @@
 class Colonia{
- 
   int id;
   String nombre;
   boolean viva = false;
   boolean muriendo = false;
+
   int particleCount = 50000;
- 
   ArrayList<Particle> particles = new ArrayList<Particle>();
   int vivas;
   int horizontal = 1;
@@ -17,7 +16,6 @@ class Colonia{
   color reserva;
   color reserva2;
 
-  
   int X;
   int Y;
   PVector origen = new PVector( X, Y );
@@ -26,7 +24,6 @@ class Colonia{
   int espectativa = 10000;
 
   int cambio = 0;
-
  
   Colonia( int i, String n, color c, color c2, int cc, int h, int v, int e ) {
     id = i;
