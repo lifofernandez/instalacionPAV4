@@ -24,8 +24,10 @@ class Colonia{
   int espectativa = 10000;
 
   int cambio = 0;
+
+  boolean agresiva = false;
  
-  Colonia( int i, String n, color c, color c2, int cc, int h, int v, int e ) {
+  Colonia( int i, String n, color c, color c2, int cc, int h, int v, int e, boolean o ) {
     id = i;
     nombre = n;
     col = c;
@@ -36,6 +38,7 @@ class Colonia{
     horizontal = h;
     verical = v;
     espectativa = 1000 * e;
+    agresiva = o;
   }
 
   void init() {
@@ -55,7 +58,7 @@ class Colonia{
       placa[ X + Y * width ] = id;
       println( "Inocular " + id + ": " + nombre );
     }else{
-      println( "Ya está viva" + id + ": " + nombre );
+      println( "Ya vive " + id + ": " + nombre );
       col  = color( 255,150 ); 
       col2  = color( 255,150 ); 
       cambio = millis();
@@ -77,19 +80,19 @@ class Colonia{
         //spread
         if( i % 10 == 0 ) coloc = col2; 
         
-        if( part.remotez() > cambio_color * 0.75 ){
+        if( part.lejania() > cambio_color * 0.75 ){
           coloc = col2;
           //spread
           if( i % 5 == 0 ){
              coloc = col;
           }
-          if( part.remotez() > cambio_color * 1.25 ){
+          if( part.lejania() > cambio_color * 1.25 ){
             coloc = col;
             //spread
             if( i % 5 == 0 ){
                coloc = col2;
             }
-            if( part.remotez() > cambio_color * 1.5 ){
+            if( part.lejania() > cambio_color * 1.5 ){
               coloc = col;
               //spread
               if( i % 5 == 0 ){
@@ -107,11 +110,7 @@ class Colonia{
         }
 
         if ( part.muerta ){
-          //pixels[
-          //   part.y * width + part.x
-          //] = color( fondo );
           vivas--;
-          //particles.remove( i );
         }
       } 
 
@@ -123,7 +122,7 @@ class Colonia{
 
   void muere() {
     if( viva ){
-      println( "Mato " + id + ": " + nombre );
+      println( "Muere " + id + ": " + nombre );
       muriendo = false;
       viva = false;
       // Borra centro

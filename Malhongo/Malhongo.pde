@@ -62,26 +62,27 @@ void setup() {
     placa[i] = -1 ;
   }
 
-  // id, nombre, color1, color2, cambio_color, difusión horizontal, difusión vertical, tiempo de vida
-  colonias[0]  = new Colonia(  0, "blanqueo",            color( fondo   ), color( fondo ), 70, 2,  1, 30);
+  // id, nombre, color1, color2, cambio_color, difusión horizontal, difusión vertical, tiempo de vida, agresiva
+  colonias[0]  = new Colonia(  0, "blanqueo",            color( fondo   ), color( fondo ), 70, 2,  1, 30, true );
 
-  colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, 2,  3, 30);
-  colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 70, 1,  1, 50);
-  colonias[3]  = new Colonia(  3, "arborenens",          color( 0,   0,   255 ), color( 255, 0,   255 ), 40, 1,  1, 60);
-  colonias[4]  = new Colonia(  4, "cladosporum",         color( 255, 255, 0   ), color( 0,   0,   255 ), 40, 1,  1, 30);
-  colonias[5]  = new Colonia(  5, "eurotium",            color( 255,   0, 255 ), color( 0,   255, 0   ), 40, 1,  1, 40);
-  colonias[6]  = new Colonia(  6, "phoma",               color( 0,   255, 255 ), color( 255,   0, 0   ), 40, 1,  1, 50);
-  colonias[7]  = new Colonia(  7, "aspergillus",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1, 30);
-  colonias[8]  = new Colonia(  8, "flavus",              color( 0,   255, 0   ), color( 0,   255, 0   ), 40, 1,  1, 30);
-  colonias[9]  = new Colonia(  9, "niger",               color( 255, 0,   255 ), color( 255, 0,   255 ), 40, 1,  1, 30);
-  colonias[10] = new Colonia( 10, "penicillium",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1, 30);
-  colonias[11] = new Colonia( 11, "penicillium_rojo",    color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1,  1, 30);
-  colonias[12] = new Colonia( 12, "penicillium_violeta", color( 0,   255 ,0   ), color( 0,   255 ,0   ), 40, 1,  1, 30);
+  colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, 2, 3, 30, false );
+  colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 70, 1, 1, 50, true  );
+  colonias[3]  = new Colonia(  3, "arborenens",          color( 0,   0,   255 ), color( 255, 0,   255 ), 40, 1, 1, 60, false );
+  colonias[4]  = new Colonia(  4, "cladosporum",         color( 255, 255, 0   ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
+  colonias[5]  = new Colonia(  5, "eurotium",            color( 255,   0, 255 ), color( 0,   255, 0   ), 40, 1, 1, 40, false );
+  colonias[6]  = new Colonia(  6, "phoma",               color( 0,   255, 255 ), color( 255,   0, 0   ), 40, 1, 1, 50, false );
+  colonias[7]  = new Colonia(  7, "aspergillus",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
+  colonias[8]  = new Colonia(  8, "flavus",              color( 0,   255, 0   ), color( 0,   255, 0   ), 40, 1, 1, 30, false );
+  colonias[9]  = new Colonia(  9, "niger",               color( 255, 0,   255 ), color( 255, 0,   255 ), 40, 1, 1, 30, false );
+  colonias[10] = new Colonia( 10, "penicillium",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
+  colonias[11] = new Colonia( 11, "penicillium_rojo",    color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
+  colonias[12] = new Colonia( 12, "penicillium_violeta", color( 0,   255 ,0   ), color( 0,   255 ,0   ), 40, 1, 1, 30, false );
 
 }
 
 
 void draw() {
+  background(fondo);
 
   fill( fondo );
   stroke( 12 );

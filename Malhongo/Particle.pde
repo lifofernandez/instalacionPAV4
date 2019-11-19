@@ -22,39 +22,37 @@ class Particle{
     do {
       x = floor(random(width));
       y = floor(random(height));
-    } while ( (placa[y * width + x] == cid));
+    } while ( (placa[y * width + x] == cid) );
   }
 
   void update() {
-    // move around
-    if ( !stuck && !col.muriendo ) {
-      x += round( random( -col.horizontal, col.horizontal) );
-      y += round( random( -col.verical, col.verical ) );
-      
-      if (
-	   x < 0
-        || y < 0
-        || x >= width
-	|| y >= height 
-	|| ocupado()
+     // move around
+    if( !stuck && !col.muriendo ) {
+        x += round( random( -col.horizontal, col.horizontal) );
+        y += round( random( -col.verical, col.verical ) );
+        
+      if(
+             x < 0
+          || y < 0
+          || x >= width
+          || y >= height 
+          || ocupado()
       ) {
-         //reset();
-         return; 
+           //reset();
+           return; 
       }
 
       if ( !alone() ) {
-        stuck = true;
-        viva = true;
-        muerta = false;
-        placa[ y * width + x ] = cid;        
-        nacimiento = millis();
+          stuck = true;
+          viva = true;
+          muerta = false;
+          placa[ y * width + x ] = cid;        
+          nacimiento = millis();
       }
     }
-   //else{
     if( millis() - nacimiento >=  col.espectativa ){
-       muere();
+        muere();
     }
-   //}
   }
 
   boolean muere() {
@@ -68,16 +66,13 @@ class Particle{
     return true;
   }
 
-  float remotez() {
+  float lejania() {
     int currentx = x;
     int currenty = y;
     float dis = sqrt(
       pow( currentx - col.origen.x, 2) +
       pow( currenty - col.origen.y, 2)
     );
-    //if( dis > col.cambio_color ){
-    //  return true;
-    //}
     return dis;
   }
 
@@ -135,6 +130,10 @@ class Particle{
     int currentx = x;
     int currenty = y;
     currenty *= width;
+    if (
+      ( col.agresiva ) &&
+      ( placa[ currenty + currentx ] > cid )
+    ) return false;
     if (
       placa[ currenty + currentx ] >= 0 
     ) return true;
