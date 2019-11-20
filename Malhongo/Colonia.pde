@@ -9,16 +9,18 @@ class Colonia{
   int vivas;
   int horizontal = 1;
   int verical = 1;
+
+  int X;
+  int Y;
+  PVector origen = new PVector( X, Y );
  
   color col;
   color col2;
   int cambio_color;
   color reserva;
   color reserva2;
-
-  int X;
-  int Y;
-  PVector origen = new PVector( X, Y );
+  int anillos = 3;
+  float grosor  = .25;
 
   int nacimiento;
   int espectativa = 10000;
@@ -27,7 +29,7 @@ class Colonia{
 
   boolean agresiva = false;
  
-  Colonia( int i, String n, color c, color c2, int cc, int h, int v, int e, boolean o ) {
+  Colonia( int i, String n, color c, color c2, int cc, int a, float g, int h, int v, int e, boolean o ) {
     id = i;
     nombre = n;
     col = c;
@@ -35,6 +37,8 @@ class Colonia{
     reserva = c;
     reserva2 = c2;
     cambio_color = cc;
+    anillos = a;
+    grosor  = g;
     horizontal = h;
     verical = v;
     espectativa = 1000 * e;
@@ -74,33 +78,38 @@ class Colonia{
       col2  = reserva2; 
     }
     if( viva ){
-      for( int i = 0; i < particles.size(); i++ ) {
+
+      for( int i = 0; i < particles.size(); i++ ){
         Particle part = particles.get(i);
         color coloc  = col; 
         //spread
         if( i % 10 == 0 ) coloc = col2; 
-        
-        if( part.lejania() > cambio_color * 0.75 ){
-          coloc = col2;
-          //spread
-          if( i % 5 == 0 ){
-             coloc = col;
-          }
-          if( part.lejania() > cambio_color * 1.25 ){
-            coloc = col;
-            //spread
-            if( i % 5 == 0 ){
-               coloc = col2;
-            }
-            if( part.lejania() > cambio_color * 1.5 ){
+        for( int e = 1; e <= anillos * 2; e++ ) {
+          float anillo = cambio_color * grosor * e;
+          if( part.lejania() > cambio_color + anillo ){
+            coloc = col2;
+            if( i % 10 == 0 ) coloc = col; 
+            if( e % 2 == 0 ){
               coloc = col;
-              //spread
-              if( i % 5 == 0 ){
-                 coloc = col2;
-              }
+              if( i % 10 == 0 ) coloc = col2; 
             }
           }
         }
+
+        //if( part.lejania() > cambio_color * 1.25 ){
+        //  coloc = col;
+        //  //spread
+        //  if( i % 5 == 0 ){
+        //     coloc = col2;
+        //  }
+        //  if( part.lejania() > cambio_color * 1.5 ){
+        //    coloc = col;
+        //    //spread
+        //    if( i % 5 == 0 ){
+        //       coloc = col2;
+        //    }
+        //  }
+        //}
         part.update();
         if ( part.stuck && !part.muerta){
           pixels[

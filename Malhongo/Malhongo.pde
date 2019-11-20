@@ -62,21 +62,21 @@ void setup() {
     placa[i] = -1 ;
   }
 
-  // id, nombre, color1, color2, cambio_color, difusión horizontal, difusión vertical, tiempo de vida, agresiva
-  colonias[0]  = new Colonia(  0, "blanqueo",            color( fondo   ), color( fondo ), 70, 2,  1, 30, true );
+  // id, nombre, color1, color2, cambio_color, anillos, grosor, difusión horizontal, difusión vertical, tiempo de vida, agresiva
+  colonias[0]  = new Colonia(  0, "blanqueo",            color( fondo   ), color( fondo ), 70, 3, .20, 2,  1, 30, true );
 
-  colonias[1]  = new Colonia(  1, "stemphylium",         color( 255, 0,   0   ), color( 255, 255, 0   ), 70, 2, 3, 30, false );
-  colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255,   0 ), color( 0,   255, 255 ), 70, 1, 1, 50, true  );
-  colonias[3]  = new Colonia(  3, "arborenens",          color( 0,   0,   255 ), color( 255, 0,   255 ), 40, 1, 1, 60, false );
-  colonias[4]  = new Colonia(  4, "cladosporum",         color( 255, 255, 0   ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
-  colonias[5]  = new Colonia(  5, "eurotium",            color( 255,   0, 255 ), color( 0,   255, 0   ), 40, 1, 1, 40, false );
-  colonias[6]  = new Colonia(  6, "phoma",               color( 0,   255, 255 ), color( 255,   0, 0   ), 40, 1, 1, 50, false );
-  colonias[7]  = new Colonia(  7, "aspergillus",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
-  colonias[8]  = new Colonia(  8, "flavus",              color( 0,   255, 0   ), color( 0,   255, 0   ), 40, 1, 1, 30, false );
-  colonias[9]  = new Colonia(  9, "niger",               color( 255, 0,   255 ), color( 255, 0,   255 ), 40, 1, 1, 30, false );
-  colonias[10] = new Colonia( 10, "penicillium",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
-  colonias[11] = new Colonia( 11, "penicillium_rojo",    color( 0,   0,   255 ), color( 0,   0,   255 ), 40, 1, 1, 30, false );
-  colonias[12] = new Colonia( 12, "penicillium_violeta", color( 0,   255 ,0   ), color( 0,   255 ,0   ), 40, 1, 1, 30, false );
+  colonias[1]  = new Colonia(  1, "stemphylium",         color( 200, 174, 121 ), color( 61,  47,  54  ), 30,  4, 0.5, 1, 3, 80, false );
+  colonias[2]  = new Colonia(  2, "phialophora",         color( 0,   255, 0   ), color( 255, 0,   0   ), 20,  4, 0.7, 1, 1, 50, true  );
+  colonias[3]  = new Colonia(  3, "arborenens",          color( 157, 152, 149 ), color( 61,  47,  54  ), 60,  3, 1.5, 3, 1, 60, false );
+  colonias[4]  = new Colonia(  4, "cladosporum",         color( 255, 255, 0   ), color( 0,   0,   255 ), 40,  4, 0.5, 1, -1, 30, false );
+  colonias[5]  = new Colonia(  5, "ochra",               color( 255, 0,   255 ), color( 0,   255, 0   ), 40,  4, 0.5, 1, 1, 40, false );
+  colonias[6]  = new Colonia(  6, "phoma",               color( 0,   255, 255 ), color( 255, 0,   0   ), 40,  4, 0.5, 1, 1, 50, false );
+  colonias[7]  = new Colonia(  7, "aspergillus",         color( 208, 169, 83  ), color( 98,  52,  16  ), 40,  4, 0.5, 1, 1, 30, false );
+  colonias[8]  = new Colonia(  8, "flavus",              color( 0,   255, 0   ), color( 0,   255, 0   ), 40,  4, 0.5, 1, 1, 30, false );
+  colonias[9]  = new Colonia(  9, "niger",               color( 255, 0,   255 ), color( 255, 0,   255 ), 40,  4, 0.5, 1, 1, 30, false );
+  colonias[10] = new Colonia( 10, "penicillium",         color( 0,   0,   255 ), color( 0,   0,   255 ), 40,  4, 0.5, 1, 1, 30, false );
+  colonias[11] = new Colonia( 11, "penicillium_rojo",    color( 0,   0,   255 ), color( 0,   0,   255 ), 40,  4, 0.5, 1, 1, 30, false );
+  colonias[12] = new Colonia( 12, "penicillium_violeta", color( 0,   255 ,0   ), color( 0,   255 ,0   ), 40,  4, 0.5, 1, 1, 30, false );
 
 }
 
@@ -88,9 +88,6 @@ void draw() {
   stroke( 12 );
   ellipse( centro.x, centro.y, diametro, diametro );
 
-  stroke( 255 );
-  line( puntero.x - mira, puntero.y, puntero.x + mira, puntero.y);
-  line( puntero.x, puntero.y - mira, puntero.x, puntero.y + mira);
 
   loadPixels();
   for( int i = 0; i < coloniasCantidad; ++i ) {
@@ -105,73 +102,75 @@ void draw() {
   if( !dentro ) puntero = new PVector( reserva.x, reserva.y );
   reserva = new PVector( puntero.x, puntero.y );
 
+  stroke( 255 );
+  line( puntero.x - mira, puntero.y, puntero.x + mira, puntero.y);
+  line( puntero.x, puntero.y - mira, puntero.x, puntero.y + mira);
+
 }
 
 void keyPressed() {
-
   //reset
-  if (key == '0'){
+  if (key == 'z'){
     for(int i=0; i < coloniasCantidad; i++) {
       colonias[i].muere() ;
     }
   }
-  if (key == '1'){
+  if (key == 'a'){
     colonias[1].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '2'){
+  if (key == 'f'){
     colonias[2].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '3'){
+  if (key == 'w'){
     colonias[3].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '4'){
+  if (key == 'n'){
     colonias[4].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '5'){
+  if (key == 'e'){
     colonias[5].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '6'){
+  if (key == '!'){
     colonias[6].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '7'){
+  if (key == 'l'){
     colonias[7].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '8'){
+  if (key == 'q'){
     colonias[8].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == '9'){
+  if (key == '.'){
     colonias[9].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == 'q'){
+  if (key == 't'){
     colonias[10].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == 'w'){
+  if (key == '-'){
     colonias[11].deploy( int( puntero.x ), int( puntero.y ) );
   }
-  if (key == 'e'){
+  if (key == '6'){
     colonias[12].deploy( int( puntero.x ), int( puntero.y ) );
   }
 }
 
 void puntero() {
-  if(key == CODED) {
-    if( keyCode == LEFT ){
+
+    if( key == '5' ){
       desplazarX = -1;
     }
-    if( keyCode == RIGHT ){
+    if( key == '0' ){
       desplazarX = 1;
     }
 
-    if( keyCode == UP ){
+    if( key == 'x' ){
       desplazarY = -1;
     }
-    if( keyCode ==  DOWN ){
+    if( key ==  'c' ){
       desplazarY = 1;
     }
-  }
+  
   puntero.y += desplazarY * paso;
   puntero.x += desplazarX * paso;
   desplazarX = 0;
   desplazarY = 0;
 }
-
